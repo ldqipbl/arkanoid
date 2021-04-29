@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="Content-Type" content="text/html" />
+	<meta name="viewport" content="width=device-width,user-scalable=no" />
+	<title>Document</title>
+</head>
+<body>
+	<script type="text/javascript" src="key.js"></script>
+	<script type="text/javascript" src="engine.js"></script>
+	<script type="text/javascript" src="graph.js"></script>
+	<script type="text/javascript" src="player.js"></script>
+	<script type="text/javascript" src="grid.js"></script>
+	<script type="text/javascript" src="ball.js"></script>
+
+	<canvas id='canvas' width="640" height="480"></canvas>
+	<div style="position: absolute; top: 10px; left: 10px;">
+
+		<p>Счет игрока: <b id="score">0</b></p>
+		<p>Жизни: <b id="hp">3</b></p>
+
+	</div>
+
+	<script type="text/javascript">
+		init();
+
+		var map = {
+			color : '#c75252',
+			width : 20,
+			height : 20,
+			offset : 5,
+
+			tiles : [
+				[0, 0, 0, 0, 0, 0, 0, 0, 0, 0,],
+				[0, 1, 1, 1, 0, 0, 1, 1, 1, 0,],
+				[0, 1, 1, 1, 0, 0, 1, 1, 1, 0,],
+				[0, 0, 0, 0, 1, 1, 0, 0, 0, 0,],
+				[0, 0, 0, 0, 1, 1, 0, 0, 0, 0,],
+				[0, 1, 1, 1, 1, 1, 1, 1, 1, 0,],
+			],
+		};
+
+
+		grid.create(map);
+
+		player.init(width / 2, 200, 'blue');
+		ball.init(player.x+Math.ceil(player.width / 2), player.y-5, 5, 'blue');
+
+
+		var Game = function () {
+			fillAll('#add8e6');
+
+			grid.draw();
+
+			ball.collision();
+			ball.draw();
+			ball.move();
+
+			player.draw();
+			player.move();
+
+		};
+
+		var menu = function () {
+
+			fillAll('#add8e6');
+
+			grid.draw();
+			ball.draw();
+			player.draw();
+
+			if (isAnyKeyDown()) {
+				setGame(Game);
+			};
+
+		};
+
+		startGame(menu);
+	</script>
+</body>
+</html>
